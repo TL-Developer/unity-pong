@@ -5,9 +5,10 @@ using UnityEngine;
 public class RaqueteController : MonoBehaviour
 {
     private Vector3 minhaPosicao;
-    public float meuY;
-    private float velocidade;
-    private float limiteTela = 3.8f;
+    private float meuY;
+    public float velocidade = 5f;
+    public float limiteTela = 3.8f;
+    public int player;
 
     RaqueteController()
     {
@@ -16,8 +17,23 @@ public class RaqueteController : MonoBehaviour
 
     void Start()
     {
-        velocidade = 0.5f * Time.deltaTime;
-        minhaPosicao.x = transform.position.x;
+        minhaPosicao = transform.position;
+    }
+
+    void handleCima(KeyCode keyCode)
+    {
+        if (Input.GetKey(keyCode) && meuY < limiteTela)
+        {
+            meuY += velocidade * Time.deltaTime;
+        }
+    }
+
+    void handleBaixo(KeyCode keyCode)
+    {
+        if (Input.GetKey(keyCode) && meuY > -limiteTela)
+        {
+            meuY -= velocidade * Time.deltaTime;
+        }
     }
 
     void Update()
@@ -25,14 +41,14 @@ public class RaqueteController : MonoBehaviour
         minhaPosicao.y = meuY;
         transform.position = minhaPosicao;
 
-        if (Input.GetKey(KeyCode.UpArrow) && meuY < limiteTela)
+        if (player == 1)
         {
-            meuY += velocidade;
-        }
-
-        if (Input.GetKey(KeyCode.DownArrow) && meuY > -limiteTela)
+            handleCima(KeyCode.UpArrow);
+            handleBaixo(KeyCode.DownArrow);
+        } else
         {
-            meuY -= velocidade;
+            handleCima(KeyCode.W);
+            handleBaixo(KeyCode.S);
         }
     }
 }

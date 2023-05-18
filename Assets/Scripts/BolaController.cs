@@ -6,11 +6,13 @@ public class BolaController : MonoBehaviour
 {
 
     public Rigidbody2D meuRigiBody;
-    public Vector2 minhaVelocidade;
+    private Vector2 minhaVelocidade;
+    public float velocidade = 5f;
 
     // Start is called before the first frame update
     void Start()
     {
+        minhaVelocidade.x = -velocidade;
         meuRigiBody.velocity = minhaVelocidade;
     }
 
