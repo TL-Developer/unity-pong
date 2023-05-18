@@ -7,8 +7,10 @@ public class RaqueteController : MonoBehaviour
     private Vector3 minhaPosicao;
     private float meuY;
     public float velocidade = 5f;
-    public float limiteTela = 3.8f;
+    public float limiteTela = 3.3f;
     public int player;
+    public bool automatico = false;
+    public Transform transformBola;
 
     RaqueteController()
     {
@@ -41,14 +43,21 @@ public class RaqueteController : MonoBehaviour
         minhaPosicao.y = meuY;
         transform.position = minhaPosicao;
 
-        if (player == 1)
+        if (!automatico)
         {
-            handleCima(KeyCode.UpArrow);
-            handleBaixo(KeyCode.DownArrow);
+            if (player == 1)
+            {
+                handleCima(KeyCode.UpArrow);
+                handleBaixo(KeyCode.DownArrow);
+            }
+            else
+            {
+                handleCima(KeyCode.W);
+                handleBaixo(KeyCode.S);
+            }
         } else
         {
-            handleCima(KeyCode.W);
-            handleBaixo(KeyCode.S);
+            meuY = transformBola.position.y;
         }
     }
 }
