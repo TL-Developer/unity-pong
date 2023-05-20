@@ -18,6 +18,8 @@ public class BolaController : MonoBehaviour
     public float limiteHorizontal = 12f;
     public AudioClip audioClip;
     public Transform transformCamera;
+    public float delay = 2f;
+    public bool jogoIniciado = false;
 
     void superiorEsquerdo()
     {
@@ -54,33 +56,42 @@ public class BolaController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        minhaVelocidade.x = -velocidade;
-
-        int random = Random.Range(0, 3);
-
-        if (random == 0)
-        {
-            superiorEsquerdo();
-        }
-        else if (random == 1)
-        {
-            superiorDireito();
-        }
-        else if (random == 3)
-        {
-            inferiorEsquerdo();
-        }
-        else
-        {
-            inferiorDireito();
-        }
-
-        meuRigiBody.velocity = minhaVelocidade;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        delay -= Time.deltaTime;
+
+        if (delay <= 0 && !jogoIniciado)
+        {
+            jogoIniciado = true;
+
+            minhaVelocidade.x = -velocidade;
+
+            int random = Random.Range(0, 3);
+
+            if (random == 0)
+            {
+                superiorEsquerdo();
+            }
+            else if (random == 1)
+            {
+                superiorDireito();
+            }
+            else if (random == 3)
+            {
+                inferiorEsquerdo();
+            }
+            else
+            {
+                inferiorDireito();
+            }
+
+            meuRigiBody.velocity = minhaVelocidade;
+        }
+
         resetGame();
     }
 
