@@ -60,17 +60,28 @@ public class RaqueteController : MonoBehaviour
         {
             if (player == 1)
             {
-                handleCima(KeyCode.UpArrow);
-                handleBaixo(KeyCode.DownArrow);
-            }
-            else
-            {
+                
                 handleCima(KeyCode.W);
                 handleBaixo(KeyCode.S);
             }
+            else
+            {
+                handleCima(KeyCode.UpArrow);
+                handleBaixo(KeyCode.DownArrow);
+            }
         } else
         {
-            meuY = transformBola.position.y;
+            meuY = Mathf.Lerp(meuY, transformBola.position.y, 0.02f);
+        }
+
+        if(Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.UpArrow))
+        {
+            automatico = false;
+        }
+
+        if (Input.GetKey(KeyCode.Return))
+        {
+            automatico = true;
         }
 
         resetMeuLimite();
